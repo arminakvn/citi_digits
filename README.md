@@ -46,6 +46,13 @@ Production setup
 
                : Install needed mysql configs
                     $ sudo apt-get install libmysqlclient-dev python-dev
+		
+	       : Install needed PIL dependencies
+                    $ sudo pip uninstall PIL
+		    $ sudo apt-get install libjpeg-dev 
+                    $ sudo apt-get install zlib1g-dev 
+                    $ sudo apt-get install libpng12-dev 	    
+		    $ sudo pip install PIL
 
                : install app dependencies
                     $ python setup.py install
@@ -124,7 +131,7 @@ Allow from all
 
 
 pip uninstall PIL
-apt-get install libjpeg-dev
-apt-get install zlib1g-dev
-apt-get install libpng12-dev
+sudo yum install zlib-devel.x86_64 
+sudo yum install libjpeg-devel.x86_64
+sudo yum install libpng12-devel.x86_64
 pip install PIL

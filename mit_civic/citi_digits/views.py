@@ -2,6 +2,7 @@ from decimal import Decimal
 import json
 from random import randint
 import django
+from django.contrib.auth.models import AnonymousUser
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction
 from django.forms.util import ErrorList
@@ -439,8 +440,7 @@ def interviewList(request,offset):
 
 
     #get interviews
-    print kwargs
-    interviews = Interview.objects.filter(**kwargs)
+    interviews = Interview.objects.filter(**kwargs).order_by("-created_at")
 
     #get teams
     teams =  Team.objects.values_list('name', flat=True).order_by('name').distinct()
@@ -465,7 +465,6 @@ def interviewList(request,offset):
 
 
     #render
-    print toolbar
     return render_to_response('interviews.html',{'interviews':interviews,'teams':teams, 'classes':classes,
                                                  'toolbar':toolbar,'pages_to_display':pagesToDisplay},context_instance=RequestContext(request))
 
@@ -486,18 +485,24 @@ def comment(request,id):
     """
       Posts a comment to an interview
     """
+    current_user = request.user
     if request.method == 'POST':
         #get variables
         print request.POST
         name = request.POST.get('name',None)
         message = escape(request.POST.get('comment',''))
-        print "NAME: " + name
+        klass = None
 
         if name is not None:
             #get interview
             interview = Interview.objects.get(pk=id)
+            #determine class based on logged in user
+            if(isinstance(current_user,AnonymousUser)):
+                klass = ""
+            else:
+                klass = Student.objects.get(id=current_user.entityId).team.teacher.className
             #create comment
-            comment = InterviewComment(name=name,comment=message,interview=interview)
+            comment = InterviewComment(name=name,comment=message,interview=interview, commenterClass=klass)
             #persist comment
             comment.save()
             #get comments
@@ -542,6 +547,7 @@ def tour(request):
 
             #create tour slides
             slideIdx=1
+            defaultCoverPhoto = slideFormset.forms[0].cleaned_data['image']
             for slide in slideFormset.forms:
                 TourSlide(photo=slide.cleaned_data['image'],text=slide.cleaned_data['text'],
                           link=slide.cleaned_data['link'],tour=newTour,sequence=slideIdx,audio=slide.cleaned_data['audio']).save()
@@ -550,6 +556,11 @@ def tour(request):
                     newTour.coverPhoto = slide.cleaned_data['image']
                     newTour.save()
                 slideIdx= slideIdx + 1
+
+            if not newTour.coverPhoto:
+                newTour.coverPhoto = defaultCoverPhoto
+                newTour.save()
+
 
 
              #return response
@@ -677,7 +688,7 @@ def __paginatatedEntities(entity,page):
     """
     entities = None
     #pages per page
-    paginator = Paginator(entity,9)
+    paginator = Paginator(entity,12)
 
     #pagination
     try:

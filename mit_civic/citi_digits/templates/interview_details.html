@@ -1,8 +1,14 @@
+{% load image_tags %}
 <button type="button" class="close modal-close" data-dismiss="modal" aria-hidden="true">
     <img src="{{ STATIC_URL }}/img/close.png"/>
 </button>
+<div class="modal-body auto-scroll" style="height: 100%; overflow-x: hidden; border-radius: 5px;">
 <div id="interview-details-header" class="interview-detail-team-{{ interview.student.team.name.lower }}">
+    {% if interview.interviewType == "PLAYER" %}
     <img src="{{ STATIC_URL }}img/interview-details-icon.png" class="interviewee-team ">
+    {% else %}
+    <img src="{{ STATIC_URL }}img/interview-details-retailers-icon.png" class="interviewee-team ">
+    {% endif %}
     <p class="interviewee-by-description "><b>By:</b> {{ interview.student.team.name }} team,{{ interview.student.team.teacher.className }}
     <br>
     {{ interview.created_at }}</p>
@@ -10,9 +16,9 @@
 <div id="interview-details" class="container">
 {% if interview.interviewType == 'PLAYER' %}
     <div class="row-fluid">
-        <p class="interviewee-name-details">{{ interview.getInterview.firstName }}</p>
+        <p class="interviewee-name-details"><span class="underline-black">{{ interview.getInterview.firstName }}</span></p>
     </div><!-- name -->
-    <div class="row-fluid">
+    <div class="row">
     <div class="span5">
         <p class="interview-details-label">Do you ever buy lottery tickets?</p>
         <p>{{ interview.getInterview.do_you_ever_buy_lottery_tickets|yesno:"Yes,No" }}</p>
@@ -28,7 +34,7 @@
         <audio src="{{ MEDIA_URL }}/{{ interview.getInterview.jackpot_audio }}" preload="auto" controls></audio>
     </div><!-- form questions-->
     <div class="span4">
-        <img src="{{ MEDIA_URL }}/{{ interview.getInterview.photo }}" class="interviewee-photo">
+        <img src="{{ interview.getInterview.photo|crop:"282x282" }}" class="interviewee-photo">
     </div><!-- image -->
     <div id="map-thumb" class="span3">
         <div id="long" class="hidden">{{ long }}</div>
@@ -38,9 +44,9 @@
     </div><!-- map thumb -->
 {% else %}
     <div class="row-fluid">
-        <p class="interviewee-name-details">{{ interview.getInterview.storeName }}</p>
+        <p class="interviewee-name-details"><span class="underline-black">{{ interview.getInterview.storeName }}</span></p>
     </div><!-- name -->
-    <div class="row-fluid">
+    <div class="row">
     <div class="span5">
         <p class="interview-details-label">Do you sell lottery tickets?</p>
         <p>{{ interview.getInterview.do_you_sell_lottery_tickets|yesno:"Yes,No" }}</p>
@@ -56,7 +62,7 @@
         <audio src="{{ MEDIA_URL }}/{{ interview.getInterview.why_or_why_not_lottery_neighborhood_audio }}" preload="auto" controls></audio>
     </div><!-- form questions-->
     <div class="span4">
-        <img src="{{ MEDIA_URL }}/{{ interview.getInterview.photo }}" class="interviewee-photo">
+        <img src="{{ interview.getInterview.photo|crop:"282x282" }}" class="interviewee-photo">
     </div><!-- image -->
     <div id="map-thumb" class="span3">
         <div id="long" class="hidden">{{ long }}</div>
@@ -70,8 +76,10 @@
 <br/>
 </div><!-- interview details -->
 <div id="interview-details-comments" class="">
+    {% if comments.count > 0 %}
     <br/>
     <p class="comment-header">Comments</p>
+    {% endif %}
     <br/>
     <div id="comments-list" class="container">
        {% for comment in comments %}
@@ -80,9 +88,11 @@
                 <div class="row-fluid">
                     <b class="comment-name">{{ comment.name }}</b>
                 </div>
+                {% if comment.commterClass|length > 0 %}
                 <div class="row-fluid">
-                    {{ comment.interview.student.team.teacher.className }}
+                    {{ comment.commenterClass }}
                 </div>
+                {% endif %}
                 <div class="row-fluid">
                     {{ comment.created_at|date:"M d, Y" }}
                 </div>
@@ -95,6 +105,7 @@
            <br>
      {% endfor %}
     </div>
+   {% if user.is_authenticated %}
     <p class="comment-header">Leave a Comment</p>
     <form id="comment-form">
         <div class="row-fluid">
@@ -109,11 +120,12 @@
         </div>
         <div class="row-fluid">
             <div class="span3"></div>
-            <div class="span7"><button id="comment-submit" class="btn submit interview-button" data-form="/interview/{{ interview.id }}/comment/" aria-hidden="true" style="float: left">Submit</button></div>
+            <div class="span7"><button id="comment-submit" class="btn submit interview-button" data-form="/interview/{{ interview.id }}/comment/" aria-hidden="true" style="float: left; margin-left: 15px;">Submit</button></div>
             <div class="span2"></div>
         </div>
-
-    </form>
+    </form><!-- comment-form -->
+   {% endif %}
 <br/>
 <br/>
 </div><!-- interview comments -->
+</div>

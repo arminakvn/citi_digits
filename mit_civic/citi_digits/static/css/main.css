@@ -450,11 +450,16 @@ width: 100%;
     list-type: none;
     margin: 0;
     margin-left: -12%;
-    border: 1px solid #BBB;
+    border-bottom: 1px solid #BBB;
     border-top-width: 1px;
     border-bottom-width: 1px;
     padding: 10px;
 }
+
+.map-ui ul li.first{
+    border-top: 1px solid #BBBBBB;
+}
+
 .map-ui a {
     font-family:"Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
     display: block;
@@ -605,12 +610,16 @@ border-bottom-left-radius: 5px;
 
 .map-ui #map-view-level div.active{
     border-style:solid;
-    border-width: 3px;
-    border-color: #000000;
+    border-width: 1px;
+    border-color: #3f3f3f;
+      -moz-box-sizing:    border-box;
+   -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
 }
 
 .map-ui #map-view-level div p{
     display: inline;
+    font-size: 12px;
 }
 
 .map-ui #map-legend-street{
@@ -1037,7 +1046,7 @@ background-color: #fbc5ed;
     width: 250px;
     border-radius: 5px;
     /*margin-right: 5%;*/
-    margin-top: 3%;
+    margin-top: 14px;
     text-align: center;
     padding-top: 3%;
     padding-bottom: 5%;
@@ -1064,7 +1073,7 @@ background-color: #fbc5ed;
     padding-bottom: 12px;
     padding-left: 3%;
     margin-right: 20px;
-    margin-top: 3%;
+    margin-top: 13px;
     -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
     -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
     box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
@@ -1100,6 +1109,7 @@ background-color: #fbc5ed;
     font-size: 13px;
     color: #3F3F3F;
     margin-top: 15%;
+    padding-right: 15px;
 }
 
 #map-popup-footer button.form_button{
@@ -1160,6 +1170,7 @@ background-color: #fbc5ed;
 #mapPopupModal .not-all-equal-odd{
     background-color: #b0b6bd;
     text-align: center;
+    padding-bottom: 9px;
 }
 
 #mapPopupModal .not-all-equal-even{
@@ -1172,8 +1183,7 @@ background-color: #fbc5ed;
     font-family: "Apercu Bold", Calibri, sans-serif; font-size-adjust:0.508; font-weight:bold; font-style:normal;
     font-size: 30px;
     color: #FFFFFF;
-    text-decoration: underline;
-    margin-top: 2%;
+    margin-top: 31px;
 
 }
 
@@ -1181,8 +1191,7 @@ background-color: #fbc5ed;
     font-family: "Apercu Bold", Calibri, sans-serif; font-size-adjust:0.508; font-weight:bold; font-style:normal;
     font-size: 30px;
     color: #FFFFFF;
-    text-decoration: underline;
-    margin-top: 2%;
+    margin-top: 31px;
 
 }
 
@@ -1203,7 +1212,6 @@ padding-bottom: 2%;
 #interviews-tab .interview-header p{
     font-family: "Apercu Bold", Calibri, sans-serif; font-size-adjust:0.508; font-weight:bold; font-style:normal;
     font-size: 30px;
-    text-decoration: underline;
     color: #3f3f3f;
     text-align: center;
 
@@ -1212,15 +1220,16 @@ padding-bottom: 2%;
 
 #interviews-tab #interview-content p.interviewee-name{
     font-family: "Apercu Bold", Calibri, sans-serif; font-size-adjust:0.508; font-weight:bold; font-style:normal;
-    font-size: 18px;
+    font-size: 16px;
     color: #3f3f3f;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 #interviews-tab #interview-content div.interview-stub {
     display: inline-block;
-    width: 235px;
-    height: 295px;
-    /*width: 30%;*/
+    width: 300px;
+    height: 410px;
     background-color: #ffffff;
     border-radius: 5px;
     margin-top: 3%;
@@ -1229,8 +1238,8 @@ padding-bottom: 2%;
 }
 
 #interviews-tab #interview-content img.interviewee-photo{
-    height: 219px;
-    width: 219px;
+    /*height: 100%;*/
+    /*width: 100%;*/
 }
 
 #interviews-tab #interview-content img.interviewee-team{
@@ -1238,7 +1247,7 @@ padding-bottom: 2%;
     width: 31px;
     float: left;
     margin-left: 4%;
-    margin-top: 2%;
+    padding-top: 15px;
 }
 
 #interviews-tab #interview-content p.interviewee-by-description{
@@ -1246,6 +1255,9 @@ padding-bottom: 2%;
     font-size: 12px;
     color: #555555;
     text-align: left;
+    line-height: 110%;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 #interview-details-comments{
@@ -1254,6 +1266,7 @@ padding-bottom: 2%;
     font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
     font-size: 13px;
     color: #555555;
+    height: 100%;
 }
 
 #interview-details-comments #comments-list .comment-text {
@@ -1270,8 +1283,8 @@ interview-details-comments b.comment-name{
 }
 
 #interviewDetails {
-    overflow-y: scroll;
-    overflow-x: hidden;
+    /*overflow-y: scroll;*/
+    /*overflow-x: hidden;*/
 }
 
 #interview-details-header p.interviewee-by-description{
@@ -1308,7 +1321,6 @@ display: inline-block;
     color: #3f3f3f;
     margin-top: 25px;
     margin-bottom: 25px;
-    text-decoration: underline;
 }
 
 #interview-details p.interview-details-label{
@@ -1339,6 +1351,8 @@ margin-left: 12px;
     font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
     font-size: 22px;
     color: #FFFFFF;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 /*
@@ -1490,7 +1504,7 @@ border: #025FF1 solid 2px;
 -moz-border-radius: 4px;
 border-radius: 4px;
     margin-left: 7%;
-    line-height: normal;
+    line-height: 2.6em;
 }
 
 .bubble-percent_income_graph_text:after
@@ -1544,7 +1558,7 @@ border: #9518ed solid 2px;
 -moz-border-radius: 4px;
 border-radius: 4px;
     margin-left: 7%;
-    margin-top: -35%;
+    margin-top: -37%;
     line-height: normal;
 }
 
@@ -1666,6 +1680,7 @@ z-index: 0;
    border-radius: 0;
    height: 27px;
    -webkit-appearance: none;
+    box-shadow: 5px 5px 5px #3f3f3f;
    }
 
 .styled-select2 select.large {
@@ -1683,17 +1698,21 @@ z-index: 0;
    }
 
 .dropdown-caret {
-    margin-left: -15%;
-position: relative;
-height: 15px;
-top: 0px;
+    margin-left: -10%;
+    position: relative;
+    height: 15px;
+    top: 3px;
+    background-color: white;
+    z-index: 101;
 }
 
 .dropdown-caret-login {
-    margin-left: -22px;
+    margin-left: -19px;
 position: relative;
 height: 15px;
 top: 8px;
+    background-color: white;
+    z-index: 101;
 }
 
 
@@ -1707,6 +1726,7 @@ display: inline;
     font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
     color: #555555;
     margin-right: -1px;
+    box-shadow: 5px 5px 5px #3f3f3f;
 }
 
 
@@ -1722,6 +1742,7 @@ display: inline;
     margin-left: 8%;
 margin-right: 8%;
     margin-top: 1%;
+    line-height: 110%;
 }
 
 .explain-text-not-equal {
@@ -1731,6 +1752,7 @@ margin-right: 8%;
     margin-left: 8%;
 margin-right: 8%;
     margin-top: 1%;
+    line-height: 110%;
 }
 
 .explain-text-odd{
@@ -1740,6 +1762,7 @@ margin-right: 8%;
     margin-left: 8%;
 margin-right: 8%;
     margin-top: 2%;
+    padding-top: 27px;
 }
 
 .explain-text-odd-not-equal{
@@ -1749,6 +1772,7 @@ margin-right: 8%;
     margin-left: 8%;
 margin-right: 8%;
     margin-top: 2%;
+    padding-top: 8px;
 }
 
 .math-table-center{
@@ -1792,7 +1816,7 @@ border: #025FF1 solid 2px;
 -webkit-border-radius: 4px;
 -moz-border-radius: 4px;
 border-radius: 4px;
-    margin-left: 40%;
+    margin-left: 29%;
 }
 
 .bubble-explain-chart-text :after
@@ -1834,17 +1858,17 @@ z-index: 0;
 
 #addTour .even{
     background-color: #b0b6bd;
-    padding:2%;
+    padding-left: 50px;
 
 }
 
 #addTour .odd{
     background-color: #8d9297;
-    padding:2%;
+    padding-left:50px;
 }
 
 #addTour #workflow-tour{
-    padding: 2%;
+    padding: 50px;
     height: 95%;
 }
 
@@ -1965,7 +1989,6 @@ padding-top: 10px;
 }
 
 #tourPreview #tour-preview-image img.tour-preview-img{
-    height: 330px;
     width: 100%;
 }
 
@@ -1974,26 +1997,24 @@ padding-top: 10px;
 }
 
 .bubble-tour-preview-text p.blurb{
-     font-family:  "Apercu Bold", Calibri, sans-serif; font-size-adjust:0.508; font-weight:bold; font-style:normal;
+     font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
     color: #3f3f3f;
     font-size: 20px;
     text-align: left;
-    padding-left: 20px;
-    padding-top: 20px;
-    padding-right: 20px;
+    line-height: 115%;
 }
 
 .bubble-tour-preview-text p.audio{
-    padding-left: 20px;
+    /*padding-left: 20px;*/
 }
 
 .bubble-tour-preview-text p.link{
      font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
     color: #ffffff;
-    font-size: 20px;
+    font-size: 16px;
     text-align: left;
-    padding-left: 20px;
-    padding-right: 20px;
+    /*padding-left: 20px;*/
+    /*padding-right: 20px;*/
     vertical-align: bottom;
 }
 
@@ -2001,14 +2022,15 @@ padding-top: 10px;
 {
 position: relative;
 width: 620px;
-height: 250px;
-padding: 0px;
-background: greenyellow;
+min-height: 250px !important;
+padding: 30px;
+background: #00ec66;
 -webkit-border-radius: 10px;
 -moz-border-radius: 10px;
 border-radius: 10px;
     margin-top: 20px;
     display: inline-block;
+    line-height: 115%;
 }
 
 .bubble-tour-preview-text:after
@@ -2019,7 +2041,7 @@ top: 59px;
 left: -15px;
 border-style: solid;
 border-width: 15px 15px 15px 0;
-border-color: transparent greenyellow;
+border-color: transparent #00ec66;
 display: block;
 width: 0;
 z-index: 1;
@@ -2038,17 +2060,15 @@ padding-bottom: 2%;
 #tours-tab  .tour-header p{
     font-family: "Apercu Bold", Calibri, sans-serif; font-size-adjust:0.508; font-weight:bold; font-style:normal;
     font-size: 30px;
-    text-decoration: underline;
     color: #3f3f3f;
     text-align: center;
-
 }
 
 
 #tours-tab #tour-content div.tour-stub {
     display: inline-block;
-    width: 235px;
-    height: 235px;
+    width: 300px;
+    /*height: 235px;*/
     background-color: #ffffff;
     border-radius: 5px;
     margin-top: 1%;
@@ -2056,12 +2076,12 @@ padding-bottom: 2%;
 }
 
 #tours-tab #tour-content div.tour-stub #tour-stub-cover-photo{
-    margin: 1%;
+    padding-top: 5px;
 }
 
 #tours-tab #tour-content div.tour-stub #tour-stub-cover-photo img.cover-photo{
-    height: 152px;
-    width: 98%;
+    /*height: 152px;*/
+    /*width: 98%;*/
 }
 
 
@@ -2090,7 +2110,7 @@ padding-bottom: 2%;
 #tours-tab #tour-content div.tour-stub #tour-stub-student-blurb img.team-photo{
     width: 66px;
     height: 66px;
-    margin-left: 3px;
+    margin-left: -10px;
 }
 
 
@@ -2122,7 +2142,7 @@ padding-bottom: 2%;
 }
 
 #tourPreview #tour-image img.tour-img{
-    height: 330px;
+    /*height: 330px;*/
     width: 100%;
 
 }
@@ -2134,12 +2154,11 @@ padding-bottom: 2%;
 }
 
 #about-container p.about-header {
-    padding-top: 2%;
+    padding-top: 34px;
     color: #ffffff;
     font-size: 30px;
     font-family: "Apercu Bold", Calibri, sans-serif; font-size-adjust:0.508; font-weight:bold; font-style:normal;
-    text-decoration: underline;
-    text-decoration-color: #FFFFFF;
+    padding-bottom: 13px;
 }
 
 #about-container p.about-body {
@@ -2148,17 +2167,25 @@ padding-bottom: 2%;
     padding-left: 3%;
 padding-right: 3%;
 padding-top: 1%;
+    line-height: 120%;
 }
+
+#about-container p.about-body a:link {
+    color: #ffffff;
+}
+
+#about-container p.about-body a:visited {
+    color: #ffffff;
+}
+
 
 #about-container p.about-header-sub,
 #about-container p.about-header-sub a{
     padding-top: 1%;
-    padding-bottom: 1%;
+    /*padding-bottom: 1%;*/
     color: #ffffff;
-    font-size: 24px;
+    font-size: 22px;
     font-family: "Apercu Bold", Calibri, sans-serif; font-size-adjust:0.508; font-weight:bold; font-style:normal;
-    text-decoration: underline;
-    text-decoration-color: #FFFFFF;
 }
 
 #home-page-container #homepage-interviews-square{
@@ -2258,6 +2285,11 @@ padding-top: 1%;
     color: #3f3f3f;
 }
 
+#interview-pagination a.pagination-active-page{
+    color: blue;
+}
+
+
 #interview-pagination  #pagination-next-page{
     margin-left: 3%;
 }
@@ -2277,6 +2309,10 @@ padding-top: 1%;
 #tour-pagination a{
     font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
     color: #3f3f3f;
+}
+
+#tour-pagination a.pagination-active-page{
+    color: blue;
 }
 
 #tour-pagination  #pagination-next-page{
@@ -2331,7 +2367,7 @@ padding-top: 1%;
 }
 
 .chart-percent-explain rect {
-   stroke: white;
+   /*stroke: white;*/
  }
 
 .chart-percent-explain rect:nth-child(1){
@@ -2350,13 +2386,14 @@ padding-top: 1%;
 }
 
 img.percent-income-365{
-    margin-left: 22px;
+
 }
 
 .map-popup #map-popup-description{
     margin-top: 5%;
     line-height: normal;
     text-align: left;
+    padding-right: 10px;
 }
 
 .map-popup #map-popup-description p.description b.blue{
@@ -2400,13 +2437,13 @@ b.blue-2{
 }
 
 #dollar-td {
-    width: 281px;
+    width: 285px;
     float: right;
     text-align: left;
 }
 
 #smiley-td{
-    width: 261px;
+    width: 265px;
     float: right;
     text-align: left;
 }
@@ -2504,7 +2541,7 @@ b.net-loss-purple{
     box-shadow: 2px 2px 15px;
     left: 15px;
 }
-.citydigits-zoomer #zoom-out{
+.citydigits-zoomer #zoom-in{
     margin-left: -5px;
 }
 .citydigits-zoomer #zoom-out:hover{
@@ -2516,31 +2553,28 @@ b.net-loss-purple{
 
 .interview-tooltip {
     width: 250px;
-    height: 90px;
+    /*height: 90px;*/
 }
 
 .interview-tooltip img{
  height: 80px;
     width: 80px;
+    margin: 5px;
 }
 
 .interview-tooltip p.interview-rollover-name{
     font-family:  "Apercu Bold", Calibri, sans-serif; font-size-adjust:0.508; font-weight:bold; font-style:normal;
     color: #000000;
     font-size: 15px;
-    margin-top: 0px;
-}
-
-.interview-tooltip p.interview-rollover-name{
-    font-family:  "Apercu Bold", Calibri, sans-serif; font-size-adjust:0.508; font-weight:bold; font-style:normal;
-    color: #000000;
-    font-size: 15px;
+    padding-left: 5px;
+    line-height: 0px;
 }
 
 .interview-tooltip p.interview-rollover-about{
     font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
     color: #000000;
     font-size: 12px;
+    padding-left: 5px;
 }
 
 label.checkbox{
@@ -2585,4 +2619,71 @@ label.instructional-text{
 .no-space [class*="span"]{
   margin-left: 0 !important;
   width: 50% !important; // This is for 2 elements ONLY in the row
+}
+
+span.underline{
+    border-bottom: 1px solid #ffffff;
+    padding-bottom: 0px;
+}
+
+span.underline-black{
+    border-bottom: 1px solid #3f3f3f;
+    padding-bottom: 0px;
+}
+
+.popover.left .arrow{
+    top:18% !important;
+}
+.popover.left .arrow:after {
+    border-left-color: #8d9297;
+}
+
+.popover{
+    background-color: #8d9297;
+    font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
+    color: #3f3f3f;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+#city_digits_footer{
+    background-color: #ffffff;
+    font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
+    color: #b0b6bd;
+    font-size: 13px;
+    text-align: left;
+    height: 40px;
+    line-height: 2.9em;
+    padding-left: 30px;
+}
+
+.marker-cluster-medium {
+    background-color: gray;
+}
+
+.marker-cluster-medium div {
+    background-color: gray;
+}
+
+.marker-cluster-small {
+    background-color: gray;
+}
+
+.marker-cluster-small div {
+    background-color: gray;
+}
+
+.marker-cluster-large {
+    background-color: gray;
+}
+
+.marker-cluster-large div {
+    background-color: gray;
+}
+
+#create-tour-success {
+    text-align: center;
+    font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
+    color: #ffffff;
+    font-size: 22px;
 }

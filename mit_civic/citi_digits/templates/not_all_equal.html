@@ -1,16 +1,15 @@
 <button type="button" class="close modal-close" data-dismiss="modal" aria-hidden="true">
         <img src="{{ STATIC_URL }}/img/close.png"/>
 </button>
-<div class="modal-body">
+<div class="modal-body" style="border-radius: 5px;">
 <div class="popup-explain-header-not-equal">
-<p>Not all stores are Equal</p>
+<p><span class="underline">Not all stores are equal</span></p>
 </div><!-- popup-header -->
     <div id="workflow">
         <br>
         <div class="not-all-equal-even">
             <p class="explain-text-not-equal">In general, the stores that serve more people have higher net gains and losses than the stores
             that server fewer people. What might explain this?</p>
-            <br>
             <br>
         </div>
         <div class="not-all-equal-odd">
@@ -61,13 +60,14 @@
                         {%endfor  %}</div>
                     </td>
                     <td><span class="td-space"></span></td>
-                    <td class="td-bottom-align"><b class="net-loss-red"> ${{ netLoss|floatformat:0 }}</b> net loss per store per day</td>
+                    <td class="td-bottom-align"><b class="net-loss-red"> ${{ netLoss|floatformat:0 }}</b> net loss per store</td>
                 </tr>
                 <tr>
                     <td>
                     </td>
                     <td></td>
                     <td><hr></td>
+                    <td style="padding-left: 10px;">per day</td>
                 </tr>
                 <tr >
                     <td style="float: left;"><div id="smiley-td" style="margin-left: 5px; line-height: 1.5em;">
@@ -81,9 +81,9 @@
                     </td>
                 </tr>
             </table>
-            <br>
+            <br/>
+            <br/>
         </div>
-        <br/>
         <br/>
         <div class="not-all-equal-even">
             <p class="explain-text-not-equal">How does that compare to other neighborhoods?</p>
@@ -107,13 +107,14 @@
                         {%endfor  %}</div>
                     </td>
                     <td><span class="td-space"></span></td>
-                    <td class="td-bottom-align"><b class="net-loss-red"> ${{ netLossHP|floatformat:0 }} </b> net loss per store per day</td>
+                    <td class="td-bottom-align"><b class="net-loss-red"> ${{ netLossHP|floatformat:0 }} </b> net loss per store</td>
                 </tr>
                 <tr>
                     <td>
                     </td>
                     <td></td>
                     <td><hr></td>
+                    <td style="padding-left: 10px;">per day</td>
                 </tr>
                 <tr>
                     <td style="float: left;"><div id="smiley-td" style="margin-left: 5px; line-height: 1.5em;">
@@ -147,13 +148,14 @@
                         {%endfor  %}</div>
                     </td>
                     <td><span class="td-space"></span></td>
-                    <td class="td-bottom-align"><b class="net-loss-red">${{ netLossHILL|floatformat:0 }}</b> net loss per store per day</td>
+                    <td class="td-bottom-align"><b class="net-loss-red">${{ netLossHILL|floatformat:0 }}</b> net loss per store</td>
                 </tr>
                 <tr>
                     <td>
                     </td>
                     <td></td>
                     <td><hr></td>
+                    <td style="padding-left: 10px;">per day</td>
                 </tr>
                 <tr>
                     <td style="float: left;"><div id="smiley-td" style="margin-left: 5px; line-height: 1.5em;">
@@ -170,6 +172,7 @@
         </div>
         <br/>
         <br/>
+        <img id="key" src="{{ STATIC_URL }}/img/notallstoresareequal_key.png" style="position: fixed;top: 500px;right: 100px;"/>
    </div><!-- workflow -->
 </div> <!-- modal-body -->
 

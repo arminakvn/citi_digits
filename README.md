@@ -59,7 +59,9 @@ Production setup
 
                : install mod_wsgi for apache
                     $ sudo aptitude install libapache2-mod-python libapache2-mod-wsgi
-
+	
+	       : Turn on mod_expires and mod_headers
+ 		
                : create media directory and backup directory
                     $ mkdir media; mkdir media/backup ; chmod a+rw media
 
@@ -109,11 +111,35 @@ Alias /static/ /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/citi_
 <Directory /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/citi_digits/static>
 Order deny,allow
 Allow from all
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 seconds"
+  ExpiresByType text/html "access plus 1 seconds"
+  ExpiresByType image/gif "access plus 10080 minutes"
+  ExpiresByType image/jpeg "access plus 10080 minutes"
+  ExpiresByType image/png "access plus 10080 minutes"
+  ExpiresByType text/css "access plus 60 minutes"
+  ExpiresByType text/javascript "access plus 60 minutes"
+  ExpiresByType application/x-javascript "access plus 60 minutes"
+  ExpiresByType text/xml "access plus 60 minutes"
+</IfModule>
 </Directory>
 
 <Directory /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/media>
 Order deny,allow
 Allow from all
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 seconds"
+  ExpiresByType text/html "access plus 1 seconds"
+  ExpiresByType image/gif "access plus 10080 minutes"
+  ExpiresByType image/jpeg "access plus 10080 minutes"
+  ExpiresByType image/png "access plus 10080 minutes"
+  ExpiresByType text/css "access plus 60 minutes"
+  ExpiresByType text/javascript "access plus 60 minutes"
+  ExpiresByType application/x-javascript "access plus 60 minutes"
+  ExpiresByType text/xml "access plus 60 minutes"
+</IfModule>
 </Directory>
 
 WSGIScriptAlias /citydigits /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/mit_civic/wsgi.py
@@ -126,12 +152,17 @@ WSGIPythonPath /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic:/afs/
 Order deny,allow
 Allow from all
 </Files>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 seconds"
+  ExpiresByType text/html "access plus 1 seconds"
+  ExpiresByType image/gif "access plus 10080 minutes"
+  ExpiresByType image/jpeg "access plus 10080 minutes"
+  ExpiresByType image/png "access plus 10080 minutes"
+  ExpiresByType text/css "access plus 60 minutes"
+  ExpiresByType text/javascript "access plus 60 minutes"
+  ExpiresByType application/x-javascript "access plus 60 minutes"
+  ExpiresByType text/xml "access plus 60 minutes"
+</IfModule>
 </Directory>
 
-
-
-pip uninstall PIL
-sudo yum install zlib-devel.x86_64 
-sudo yum install libjpeg-devel.x86_64
-sudo yum install libpng12-devel.x86_64
-pip install PIL

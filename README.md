@@ -73,10 +73,10 @@ Production setup
                : secure mysql server (answer yes to all questions)
                     $ mysql_secure_installation
 
-               : create database and project user
+               : create database and project user (get username and password from client)
                     $ mysql -u root -p
                     mysql> create database citi_digits;
-                    mysql> grant all on citi_digits.* to 'city_user' identified by 'Eo@_rKR7)ZohFWT';
+                    mysql> grant all on citi_digits.* to 'username' identified by 'password';
 
                : update settings.py with db user and password
 

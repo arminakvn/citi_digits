@@ -97,72 +97,72 @@ Production setup
 Apache config
 =============
 
-##############################
-## City Digits WSGI         ##
-##############################
+    ##############################
+    ## City Digits WSGI         ##
+    ##############################
 
-Alias /favicon.ico /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/citi_digits/static/favicon.ico
+    Alias /favicon.ico /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/citi_digits/static/favicon.ico
 
-AliasMatch ^/([^/]*\.css) /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/citi_digits/static/css/$1
+    AliasMatch ^/([^/]*\.css) /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/citi_digits/static/css/$1
 
-Alias /media/  /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/media/
-Alias /static/ /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/citi_digits/static/
+    Alias /media/  /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/media/
+    Alias /static/ /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/citi_digits/static/
 
-<Directory /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/citi_digits/static>
-Order deny,allow
-Allow from all
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresDefault "access plus 1 seconds"
-  ExpiresByType text/html "access plus 1 seconds"
-  ExpiresByType image/gif "access plus 10080 minutes"
-  ExpiresByType image/jpeg "access plus 10080 minutes"
-  ExpiresByType image/png "access plus 10080 minutes"
-  ExpiresByType text/css "access plus 60 minutes"
-  ExpiresByType text/javascript "access plus 60 minutes"
-  ExpiresByType application/x-javascript "access plus 60 minutes"
-  ExpiresByType text/xml "access plus 60 minutes"
-</IfModule>
-</Directory>
-
-<Directory /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/media>
-Order deny,allow
-Allow from all
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresDefault "access plus 1 seconds"
-  ExpiresByType text/html "access plus 1 seconds"
-  ExpiresByType image/gif "access plus 10080 minutes"
-  ExpiresByType image/jpeg "access plus 10080 minutes"
-  ExpiresByType image/png "access plus 10080 minutes"
-  ExpiresByType text/css "access plus 60 minutes"
-  ExpiresByType text/javascript "access plus 60 minutes"
-  ExpiresByType application/x-javascript "access plus 60 minutes"
-  ExpiresByType text/xml "access plus 60 minutes"
-</IfModule>
-</Directory>
-
-WSGIScriptAlias /citydigits /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/mit_civic/wsgi.py
-WSGIPythonPath /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic:/afs/athena.mit.edu/user/v/d/vdat/.virtualenv/city_digits/lib/python2.6/site-packages
-#WSGIPythonPath /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic
-
-
-<Directory /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/mit_civic>
-<Files wsgi.py>
-Order deny,allow
-Allow from all
-</Files>
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresDefault "access plus 1 seconds"
-  ExpiresByType text/html "access plus 1 seconds"
-  ExpiresByType image/gif "access plus 10080 minutes"
-  ExpiresByType image/jpeg "access plus 10080 minutes"
-  ExpiresByType image/png "access plus 10080 minutes"
-  ExpiresByType text/css "access plus 60 minutes"
-  ExpiresByType text/javascript "access plus 60 minutes"
-  ExpiresByType application/x-javascript "access plus 60 minutes"
-  ExpiresByType text/xml "access plus 60 minutes"
-</IfModule>
-</Directory>
-
+	<Directory /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/citi_digits/static>
+	Order deny,allow
+	Allow from all
+	<IfModule mod_expires.c>
+	  ExpiresActive On
+	  ExpiresDefault "access plus 1 seconds"
+	  ExpiresByType text/html "access plus 1 seconds"
+	  ExpiresByType image/gif "access plus 10080 minutes"
+	  ExpiresByType image/jpeg "access plus 10080 minutes"
+	  ExpiresByType image/png "access plus 10080 minutes"
+	  ExpiresByType text/css "access plus 60 minutes"
+	  ExpiresByType text/javascript "access plus 60 minutes"
+	  ExpiresByType application/x-javascript "access plus 60 minutes"
+	  ExpiresByType text/xml "access plus 60 minutes"
+	</IfModule>
+	</Directory>
+	
+	<Directory /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/media>
+	Order deny,allow
+	Allow from all
+	<IfModule mod_expires.c>
+	  ExpiresActive On
+	  ExpiresDefault "access plus 1 seconds"
+	  ExpiresByType text/html "access plus 1 seconds"
+	  ExpiresByType image/gif "access plus 10080 minutes"
+	  ExpiresByType image/jpeg "access plus 10080 minutes"
+	  ExpiresByType image/png "access plus 10080 minutes"
+	  ExpiresByType text/css "access plus 60 minutes"
+	  ExpiresByType text/javascript "access plus 60 minutes"
+	  ExpiresByType application/x-javascript "access plus 60 minutes"
+	  ExpiresByType text/xml "access plus 60 minutes"
+	</IfModule>
+	</Directory>
+	
+	WSGIScriptAlias /citydigits /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/mit_civic/wsgi.py
+	WSGIPythonPath /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic:/afs/athena.mit.edu/user/v/d/vdat/.virtualenv/city_digits/lib/python2.6/site-packages
+	#WSGIPythonPath /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic
+	
+	
+	<Directory /afs/athena.mit.edu/user/v/d/vdat/app/citi_digits/mit_civic/mit_civic>
+	<Files wsgi.py>
+	Order deny,allow
+	Allow from all
+	</Files>
+	<IfModule mod_expires.c>
+	  ExpiresActive On
+	  ExpiresDefault "access plus 1 seconds"
+	  ExpiresByType text/html "access plus 1 seconds"
+	  ExpiresByType image/gif "access plus 10080 minutes"
+	  ExpiresByType image/jpeg "access plus 10080 minutes"
+	  ExpiresByType image/png "access plus 10080 minutes"
+	  ExpiresByType text/css "access plus 60 minutes"
+	  ExpiresByType text/javascript "access plus 60 minutes"
+	  ExpiresByType application/x-javascript "access plus 60 minutes"
+	  ExpiresByType text/xml "access plus 60 minutes"
+	</IfModule>
+	</Directory>
+	

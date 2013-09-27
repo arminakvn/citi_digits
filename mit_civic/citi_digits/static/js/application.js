@@ -25,8 +25,12 @@ var SCREEN_HEIGHT = null;
 var CURRENT_LAYER = null;
 var VIEW_ALL_SCHOOLS_IS_OPEN = false;
 var MY_SELECTED_BOROUGHS = [];
-L_PREFER_CANVAS = true; // experimental
+RELATIVE_URL = '';  //for development leave this blank. For production it should be 'citydigits'
 
+/*
+  This function is called when the page DOM has loaded. It enables 'back' button, sets up the map
+  and map popups.
+ */
 $().ready(new function(){
 
     // add a hash to the URL when the user clicks on a tab
@@ -62,6 +66,12 @@ $().ready(new function(){
 //    loadInterviews();
 });
 
+/*
+  This function shows the map popups. It uses a counter to determine which popup to load (there are 2).
+  It does a check to determine if a neighborhood is already displayed to verify the same neighborhood is not displayed
+  twice. It then loads the respective popup for the currently active layer and binds the needed
+  events to the respective popups.
+ */
 function showMapPopUp(ev,feature){
     console.log(feature);
     var idx= null;
@@ -117,9 +127,12 @@ function showMapPopUp(ev,feature){
                 break;
             }
 
+        //show popup
         map_popups[idx].show();
+        //unbind previous click events
         map_popups[idx].unbind("click");
 
+        //bind click event for close icon
         map_popups[idx].on("click","button.div-close",function(event){
             console.log("got click event");
             var myName = map_popups[idx].find("#map-popup-header p").text();
@@ -128,9 +141,8 @@ function showMapPopUp(ev,feature){
             map_popups_currently_active.shift();
             console.log(map_popups_currently_active_features);
             map_popups_currently_active_features[idx] = null;
-         //deselect tile
-//            MY_SELECTED_BOROUGHS[idx].originalLayer.resetStyle(ev);
-         //get index of current feature
+
+            //get index of current feature
             console.log(MY_SELECTED_BOROUGHS);
             var bLen = MY_SELECTED_BOROUGHS.length;
             var bIdx = 0;
@@ -155,8 +167,10 @@ function showMapPopUp(ev,feature){
             }
         });
 
-         map_popups[idx].off("click","#math_explain");
+        //unbind click event for explaination button
+       map_popups[idx].off("click","#math_explain");
 
+        //bind click event for explaination button
        map_popups[idx].on("click", "#math_explain", function (ev) {
             console.log("click for math explain");
         ev.preventDefault(); // prevent navigation
@@ -176,6 +190,7 @@ function showMapPopUp(ev,feature){
         }); // display the modal on url load
        });
 
+           //bind shown event
         $("#mapPopupModal").on("shown",function(){
             drawPercentIncomeGraphForExplain($("#median_income_value").val());
             $("#mapPopupModal").unbind("shown");
@@ -189,7 +204,7 @@ function showMapPopUp(ev,feature){
         return false;
     });
 
-
+    //add click event for explaination
     map_popups[idx].on("click", "#not_all_equal", function (ev) {
         ev.preventDefault(); // prevent navigation
 
@@ -227,7 +242,9 @@ function showMapPopUp(ev,feature){
     }
 }
 
-
+/*
+  This function is called when a popup is currently active. It updates the popup based on the new layer.
+ */
 function reShowMapPopUp(ev,feature,idx){
     //get which layer is active
     var activeLayer = $(".map-ui li.active").attr("id");
@@ -278,10 +295,13 @@ function reShowMapPopUp(ev,feature,idx){
 
 }
 
+/*
+  This function draws the % Income graph for the map popup as an SVG.
+ */
 function drawPercentIncomeGraph(popupId,percentIncome,medianIncome){
     var data = [500,medianIncome,percentIncome];
     //draw top tooltip
-    $("#map-popup-" + popupId + " #map-popup-graphic #median_income_graph_text").append("<b>$" + Math.round(data[1].toFixed(1)) + "</b> <a href='#' id='median_household_rollover'>median household</a> income per day.");
+    $("#map-popup-" + popupId + " #map-popup-graphic #median_income_graph_text").append("<b>$" + (Math.round(data[1]/10)*10) + "</b> <a href='#' id='median_household_rollover'>median household</a> income per day.");
 
     //draw graph
      var chart = d3.select("#map-popup-" + popupId + " #map-popup-graphic-holder").append("svg")
@@ -325,7 +345,7 @@ function drawPercentIncomeGraph(popupId,percentIncome,medianIncome){
      .text(function(d,i){ if(i%2==0 && i!=0){return "$"+d;}});
 
     //draw bottom tooltip
-    $("#map-popup-" + popupId + " #map-popup-graphic #percent_income_graph_text").append("<b class='blue'>" + data[2].toFixed(2) + "%</b> of income spent on lottery");
+    $("#map-popup-" + popupId + " #map-popup-graphic #percent_income_graph_text").append("<b class='blue'>" + roundToHalf(data[2]) + "%</b> of income spent on lottery");
 
     $(".map-popup").on("click", "#median_household_rollover",function(e){
         var titleTxt = "<div id='percent-income-rollover'> <b>Household</b> means all people age 15 or older who live in the same housing unit " +
@@ -340,7 +360,9 @@ function drawPercentIncomeGraph(popupId,percentIncome,medianIncome){
 
 }
 
-
+/*
+  This function draws the Net Gain/Loss for the map popup as an SVG.
+ */
 function drawNetGainLossGraph(popupId,winnings,spendings, net){
     data = [8000,4000,1000,spendings,winnings];
         //draw top tooltip
@@ -388,13 +410,15 @@ function drawNetGainLossGraph(popupId,winnings,spendings, net){
 
 }
 
-
+/*
+  This function draws the % Income graph for the math explaination as an SVG.
+ */
 function drawPercentIncomeGraphForExplain(medianIncome){
     console.log("drawing graph");
     var data = [500,medianIncome];
 
     //draw top tooltip
-    $("#mapPopupModal #explain-chart #explain-chart-text").append("<b class='blue-2'>$" + data[1] + "</b> median household income per day.");
+    $("#mapPopupModal #explain-chart #explain-chart-text").append("<b class='blue-2'>$" + (Math.round(data[1]/10)*10) + "</b> median household income per day.");
 
     //draw graph
      var chart = d3.select("#mapPopupModal #explain-chart #explain-chart-chart").append("svg")
@@ -484,6 +508,9 @@ function getPopupUrlFrom(activeLayer,feature){
             feature.properties.Daily_Sale+"/"+feature.properties.Daily_Win+"/"+feature.properties.Daily_Inco+"/"+feature.properties.Net_Win +"/" + feature.id +"/";
 }
 
+/*
+  This function handles switching between layers.
+ */
 $(".map-ui").on("click","a", function (e) {
     e.preventDefault();
     //turn off any unwanted layers
@@ -520,7 +547,7 @@ $(".map-ui").on("click","a", function (e) {
  */
  $(".membership").click(function(ev) {
         ev.preventDefault(); // prevent navigation
-        var url = $(this).data("form"); // get the  form url
+        var url = RELATIVE_URL + $(this).data("form"); // get the  form url
         $("#signUpModal").load(url, function() { // load the url into the modal
             $(this).modal('show').css({
                   width: '95%',
@@ -538,7 +565,7 @@ $(".map-ui").on("click","a", function (e) {
 
  $(".membership-login").click(function(ev) {
         ev.preventDefault(); // prevent navigation
-        var url = $(this).data("form"); // get the  form url
+        var url = RELATIVE_URL + $(this).data("form"); // get the  form url
         $("#loginModal").load(url, function() { // load the url into the modal
             $(this).modal('show').css({
                  width: '100%',
@@ -556,7 +583,7 @@ $(".map-ui").on("click","a", function (e) {
 
  $(".membership-logout").click(function(ev) {
         ev.preventDefault(); // prevent navigation
-        var url = $(this).data("form"); // get the form url
+        var url = RELATIVE_URL + $(this).data("form"); // get the form url
         $.ajax({
         type: 'GET',
         url: url,
@@ -574,8 +601,7 @@ $(".map-ui").on("click","a", function (e) {
 
 $("#add-interview").click(function(ev){
    ev.preventDefault();  //prevent navigation
-   var url = $(this).data("form"); //get the form url
-    console.log("ADD INTERVIEW");
+   var url = RELATIVE_URL + $(this).data("form"); //get the form url
    $("#addInterviewModal").load(url, function() { // load the url into the modal
        $(this).modal({backdrop:'static'});
             $(this).modal('show').css({
@@ -601,7 +627,7 @@ $("#add-interview").click(function(ev){
 
 $("#add-tour").click(function(ev){
    ev.preventDefault();  //prevent navigation
-   var url = $(this).data("form"); //get the form url
+   var url = RELATIVE_URL + $(this).data("form"); //get the form url
    $("#addTour").load(url, function() { // load the url into the modal
    }); //display modal
     $("#addTour").show();
@@ -617,7 +643,7 @@ $("#add-tour").click(function(ev){
 
 $("#addInterviewModal").on("click", "#add-player-interview", function (ev) {
     ev.preventDefault(); // prevent navigation
-    var url = $(this).data("form"); //get the form url
+    var url = RELATIVE_URL + $(this).data("form"); //get the form url
     $("#addInterviewModal").load(url,function() { // load the url into the modal
         $(this).modal({backdrop:'static'});
             $(this).modal('show').css({
@@ -638,7 +664,7 @@ $("#addInterviewModal").on("click", "#add-player-interview", function (ev) {
 
 $("#addInterviewModal").on("click", "#add-retailer-interview", function (ev) {
     ev.preventDefault(); // prevent navigation
-    var url = $(this).data("form"); //get the form url
+    var url = RELATIVE_URL + $(this).data("form"); //get the form url
     $("#addInterviewModal").load(url,function() { // load the url into the modal
         $(this).modal({backdrop:'static'});
             $(this).modal('show').css({
@@ -664,6 +690,9 @@ function error(msg) {
   console.log(msg);
 }
 
+/*
+  This function loads the map thumbnail
+ */
 function loadMapThumb(){
 
     var interview_thumb_map = L.mapbox.map('map-thumb', 'sw2279.NYCLotto');
@@ -673,6 +702,10 @@ function loadMapThumb(){
     var lat = $("#lat").html();
     var long = $("#long").html();
     var team = $("#team-name").html();
+
+    //determine type
+    var markerType = $("#interview-type-marker").html();
+
     var geoJson = [{
                 type: "Feature",
                 geometry: {
@@ -682,7 +715,7 @@ function loadMapThumb(){
                 "properties": {
                     "title": "Interview",
                     "icon": {
-                        "iconUrl": "/static/img/playermarker_" + team.toLowerCase() +".png",
+                        "iconUrl": "/static/img/"+ markerType + "marker_" + team.toLowerCase() +".png",
                         "iconSize": [50, 50], // size of the icon
                         "iconAnchor": [25, 25], // point of the icon which will correspond to marker's location
                         "popupAnchor": [0, -25]  // point from which the popup should open relative to the iconAnchor
@@ -703,6 +736,9 @@ function loadMapThumb(){
 
 }
 
+/*
+  This function initiates an HTML 5 geo location request.
+ */
 function geoLocationMe(interviewType){
     if (navigator.geolocation) {
         var interview_thumb_map = L.mapbox.map('interview-map-thumb', 'sw2279.NYCLotto');
@@ -1098,7 +1134,7 @@ $("#about").click(function(e){
     //load in content
     $.ajax({
         type: 'GET',
-        url: 'about/',
+        url: RELATIVE_URL + '/about/',
         success: function(data){
             $("#about-tab").html(data);
             $("#main-container").css('background-color','#025ff1');
@@ -1133,16 +1169,18 @@ $("#tours").click(function(e){
 
 $("#main-map").click(function(e){
     //hidden interview button
-    $("#add-interview").parent().attr({'class':'hidden'});
+    $("#add-interview").parent().attr({'class':''});
     $("#add-tour").parent().attr({'class':'hidden'});
     $("#main-container").css('background-color','#b0b6bd');
     $("body").css('background-color','#b0b6bd');
     //hide footer
     $("#city_digits_footer").hide();
+    //force map redraw
+    MY_MAP.resizeMap();
 });
 
 $("#interviews-tab").on("click",".interview-stub",function(event){
-   var url = "/interview/" + $(this).attr("id") + "/"; //interview id from div#id
+   var url = RELATIVE_URL + "/interview/" + $(this).attr("id") + "/"; //interview id from div#id
     $("#interviewDetails").load(url,function() { // load the url into the modal
             $(this).modal('show').css({
                  width: '95%',
@@ -1162,14 +1200,12 @@ $("#interviews-tab").on("click",".interview-stub",function(event){
 });
 
 $("#interviews-tab").on("change",".interview-toolbar", function(e){
-   console.log("CHANGE DETECED");
     //get search values
     var values = {'player_interview':$("#interview_type_player").is(":checked"),
                   'retailer_interview':$("#interview_type_retailer").is(":checked"),
                   'team':$("#interviews-tab #team").val(),
                   'class':$("#class").val()};
     var offset = 1;
-    console.log(values);
     //reload interviews
     loadInterviewsWithPagination(offset,values['player_interview'],values['retailer_interview'],values['team'],values['class']);
 });
@@ -1177,7 +1213,6 @@ $("#interviews-tab").on("change",".interview-toolbar", function(e){
 
 $("#interviews-tab").on("click","#pagination-prev-page", function(e){
     e.preventDefault();
-   console.log("prev DETECED");
     //get search values
     var values = {'player_interview':$("#interview_type_player").is(":checked"),
                   'retailer_interview':$("#interview_type_retailer").is(":checked"),
@@ -1192,14 +1227,12 @@ $("#interviews-tab").on("click","#pagination-prev-page", function(e){
 
 $("#interviews-tab").on("click","#pagination-next-page", function(e){
     e.preventDefault();
-   console.log("next DETECED");
     //get search values
     var values = {'player_interview':$("#interview_type_player").is(":checked"),
                   'retailer_interview':$("#interview_type_retailer").is(":checked"),
                   'team':$("#team").val(),
                   'class':$("#class").val()};
     var offset = $(this).data("form");
-    console.log(offset);
     //reload interviews
     loadInterviewsWithPagination(offset,values['player_interview'],values['retailer_interview'],values['team'],values['class']);
     return false;
@@ -1207,14 +1240,12 @@ $("#interviews-tab").on("click","#pagination-next-page", function(e){
 
 $("#interviews-tab").on("click",".pagination-page", function(e){
     e.preventDefault();
-   console.log("page DETECED");
     //get search values
     var values = {'player_interview':$("#interview_type_player").is(":checked"),
                   'retailer_interview':$("#interview_type_retailer").is(":checked"),
                   'team':$("#team").val(),
                   'class':$("#class").val()};
     var offset = $(this).data("form");
-    console.log(offset);
     //reload interviews
     loadInterviewsWithPagination(offset,values['player_interview'],values['retailer_interview'],values['team'],values['class']);
     return false;
@@ -1223,7 +1254,6 @@ $("#interviews-tab").on("click",".pagination-page", function(e){
 
 
 $("#map-nav").on("change",".map-ui-interviews", function(e){
-    console.log("IN HERE!@#$@#$@$");
     //get checkbox values
     player = $("#turn_on_player_interviews").is(":checked");
     retailer = $("#turn_on_retailer_interviews").is(":checked");
@@ -1245,7 +1275,6 @@ $("#map-nav").on("change",".map-ui-interviews", function(e){
 });
 
 $("#map-nav").on("click",".turn_on_class_interviews", function(e){
-    console.log("IN HERE!@#$@#$@$");
     var className = $(this).data("form");
 
     //toggle interviews on the map
@@ -1262,7 +1291,6 @@ $('#interviewDetails').on("click", "#comment-submit", function(event) {
 //    get request url
     var request_url = $(this).data("form");
 
-    console.log("request url: " + request_url);
     // get all the inputs into an array.
     var values = {'name':$('#comment-name').val(),
                     'comment':$('#comment-message').val()};
@@ -1292,16 +1320,14 @@ $('#interviewDetails').on("click", "#comment-submit", function(event) {
 
 function loadInterviews(interviewType){
     var geoJson = null;
-    var url = 'interview/geoJson/';
+    var url = RELATIVE_URL + '/interview/geoJson/';
     if (interviewType != null){
-        url =  'interview/geoJson/?type=' + interviewType;
+        url = RELATIVE_URL + '/interview/geoJson/?type=' + interviewType;
     }
     $.ajax({
         type:'GET',
         url: url,
         success: function(data){
-            console.log("GOT INTERVIEW DATA");
-            console.log(data);
             geoJson = data;
             var markers = new L.MarkerClusterGroup();
             var markerLayer = L.mapbox.markerLayer();
@@ -1315,7 +1341,7 @@ function loadInterviews(interviewType){
             markerLayer.on('click',function(e){
                   var marker = e.layer,
                     feature = marker.feature;
-                   var url = "/interview/" + feature.properties.interview_id + "/"; //interview id from div#id
+                   var url = RELATIVE_URL + "/interview/" + feature.properties.interview_id + "/"; //interview id from div#id
                     $("#interviewDetails").load(url,function() { // load the url into the modal
                             $(this).modal('show').css({
                                  width: '95%',
@@ -1336,10 +1362,7 @@ function loadInterviews(interviewType){
             markerLayer.on('mouseover',function(e){
                var marker = e.layer;
                 feature = marker.feature;
-                console.log("hello");
-                console.log(e);
                 MY_MAP.popup.setLatLng(e.latlng);
-                console.log("1");
                 var popupContent = '<div class="interview-tooltip row-fluid"><div class="span4">' + '<img src="/media/' + feature.properties.photo + '"/></div>' +
                     '<div class="span8">'+ '<p class="interview-rollover-name">'+ feature.properties.name +'</p>' +
                     '<p class="interview-rollover-about"><b>By: </b>'+ feature.properties.team  + ' Team, ' + feature.properties.class  + '</p>'
@@ -1597,7 +1620,7 @@ function loadAvgSpendingsMarkers(){
 function loadInterviewsWithPagination(offset,playerInterview,retailerInterview,team,klass){
     $.ajax({
         type: 'GET',
-        url: 'interview/list/'+offset+'/?player=' + playerInterview + "&retailer=" + retailerInterview + "&team=" + team + "&class="+klass,
+        url:  RELATIVE_URL + '/interview/list/'+offset+'/?player=' + playerInterview + "&retailer=" + retailerInterview + "&team=" + team + "&class="+klass,
         success: function(data){
             $("#interviews-tab").html(data);
 
@@ -1608,7 +1631,7 @@ function loadInterviewsWithPagination(offset,playerInterview,retailerInterview,t
 function loadToursWithPagination(offset,date,klass){
     $.ajax({
         type: 'GET',
-        url: 'tour/list/'+offset+'/?sort-date=' + date + "&sort-class="+klass,
+        url: RELATIVE_URL + '/tour/list/'+offset+'/?sort-date=' + date + "&sort-class="+klass,
         success: function(data){
             $("#tours-tab #tour-grid").html(data);
 
@@ -1833,7 +1856,7 @@ $("#tour-grid").on("click",".pagination-page", function(e){
 });
 
 $("#tours-tab").on("click",".tour-stub",function(event){
-   var url = "/tour/" + $(this).attr("id") + "/"; //interview id from div#id
+   var url = RELATIVE_URL + "/tour/" + $(this).attr("id") + "/"; //interview id from div#id
     $("#tourPreview").load(url,function() { // load the url into the modal
             $(this).modal('show').css({
                  width: '100%',
@@ -2021,3 +2044,22 @@ $("#homepage-tours-square").on("click","img",function(e){
 $("#homepage-tours-square").on("click",".home-page-rollover",function(e){
     $("#tours").click();
 });
+
+$("#city-digits-logo").on("click",function(e){
+   $("#main-map").click();
+});
+
+/*
+   This funciton rounds to the nearest .5
+ */
+function roundToHalf(value) {
+   var converted = parseFloat(value);
+   var decimal = (converted - parseInt(converted, 10));
+   decimal = Math.round(decimal * 10);
+   if (decimal == 5) { return (parseInt(converted, 10)+0.5); }
+   if ( (decimal < 3) || (decimal > 7) ) {
+      return Math.round(converted);
+   } else {
+      return (parseInt(converted, 10)+0.5);
+   }
+}

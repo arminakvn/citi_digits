@@ -18,7 +18,6 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.utils.html import escape
 
-
 def index(request):
     """
      Loads base index
@@ -314,16 +313,20 @@ def mathExplain(request,neighborhood,spent,income):
     """
     neighborhood =  neighborhood.replace("_"," ")
     spent = float(spent)
+    spent = roundToHalf(spent)
+    income = roundToTen(float(income))
     modCount = divmod(float(income),100)[0]
+    modMultipler = modCount
     modCount = range(0,int(modCount))
     leftOver = float(divmod(float(income),100)[1]) / float(100) * float(spent)
-    spentOnLotto = float(spent) * float(income) / float(100)
+    spentOnLotto = Decimal(str(spent)) * Decimal(str(income)) / Decimal(str(100))
     yearSpent = spentOnLotto * 365
-    yearEarned = Decimal(income) * 365
+    yearEarned = int(income) * 365
+    net = income - modMultipler * 100
     return render_to_response('mathematical_explainations.html',{'neighborhood':neighborhood, 'spent':spent,
                                                                  'income':income,'modCount':modCount, 'yearEarned':yearEarned,
                                                                  'leftOver':leftOver,'yearSpent':yearSpent,
-                                                                 'spentOnLotto':spentOnLotto},context_instance=RequestContext(request))
+                                                                 'spentOnLotto':spentOnLotto, 'net':net},context_instance=RequestContext(request))
 
 
 def notAllEqual(request,neighborhood):
@@ -703,3 +706,24 @@ def __paginatatedEntities(entity,page):
         return entities
 
 
+def roundToHalf(number):
+    """
+    This will round to the nearest .5
+    """
+    convertedNumber = float(number)
+    decimalNumber = (convertedNumber - int(convertedNumber))
+    decimalNumber = round(decimalNumber * 10)
+    if decimalNumber == 5:
+        return int(convertedNumber) + .5
+    if decimalNumber < 3 or decimalNumber > 7 :
+        return round(convertedNumber)
+    else:
+        return int(convertedNumber) + .5
+
+
+def roundToTen(number):
+    """
+     Rounds to nearest 10
+    """
+    number = float(number)
+    return round(number/10) * 10

@@ -25,7 +25,7 @@ Inital Setup
 Production setup
 ================
 
-    The production environment for this application is ghostmap.mit.edu. The home directory will be '/afs/athena.mit.edu/user/v/d/vdat' ($HOME_DIRECTORY). The installation
+    The production environment for this application is ghostmap.mit.edu. The home directory will be '/var/www/citi_digits/' ($HOME_DIRECTORY). The installation
     directions below are specific to this production instance and may need to be altered for another server.
 
     2013_09_07 : Created ssh key-pair for client's github account

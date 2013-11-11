@@ -135,7 +135,7 @@ class InterviewPlayer(models.Model):
     have_you_ever_won_the_lottery = models.BooleanField()
     most_won = models.CharField(max_length=255)
     money_spent_on_lottery_in_average_week = models.CharField(max_length=255)
-    jackpot_audio = models.FileField(upload_to="audio/%Y_%m_%d_%h_%M_%s")
+    jackpot_audio = models.FileField(upload_to="audio/%Y_%m_%d_%h_%M_%s",blank=True)
     photo = models.FileField(upload_to="photo/%Y_%m_%d_%h_%M_%s")
 
 
@@ -149,7 +149,7 @@ class InterviewRetailer(models.Model):
     customers_in_a_day = models.CharField(max_length=255)
     percentage_buy_lottery_tickets = models.IntegerField()
     amount_tickets_bought_per_visit = models.CharField(max_length=50)
-    why_or_why_not_lottery_neighborhood_audio = models.FileField(upload_to="audio/%Y_%m_%d_%h_%M_%s")
+    why_or_why_not_lottery_neighborhood_audio = models.FileField(upload_to="audio/%Y_%m_%d_%h_%M_%s",blank=True)
     photo = models.FileField(upload_to="photo/%Y_%m_%d_%h_%M_%s")
 
 

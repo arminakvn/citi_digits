@@ -146,9 +146,9 @@ class InterviewRetailer(models.Model):
     storeName = models.CharField(max_length=255)
     do_you_sell_lottery_tickets = models.BooleanField()
     why_or_why_not_audio = models.FileField(upload_to="audio/%Y_%m_%d_%h_%M_%s")
-    customers_in_a_day = models.CharField(max_length=255)
+    customers_in_a_day = models.CharField(max_length=255, blank=True)
     percentage_buy_lottery_tickets = models.IntegerField()
-    amount_tickets_bought_per_visit = models.CharField(max_length=50)
+    amount_tickets_bought_per_visit = models.CharField(max_length=50,blank=True)
     why_or_why_not_lottery_neighborhood_audio = models.FileField(upload_to="audio/%Y_%m_%d_%h_%M_%s",blank=True)
     photo = models.FileField(upload_to="photo/%Y_%m_%d_%h_%M_%s")
 

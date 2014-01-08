@@ -529,7 +529,7 @@ $(".map-ui").on("click","a", function (e) {
 
     //check zoom
     if( MY_MAP.map.getZoom() > 13){
-         MY_MAP.map.setZoom(13);
+//         MY_MAP.map.setZoom(13);
         updateMapUIBackToCityLevel();
     }
     //update map
@@ -1455,7 +1455,7 @@ function updateMapUIBackToCityLevel(){
 
 $("#map-nav").on("click","#map-city-level-view-winnings",function(e){
    //reset zoom to city level
-    MY_MAP.map.setZoom(13);
+//    MY_MAP.map.setZoom(13);
     //clear winnings markers if any
     if(WINNINGS_LAYER!=null){
         MY_MAP.map.removeLayer(WINNINGS_LAYER);
@@ -1485,7 +1485,7 @@ $("#map-nav").on("click","#map-street-level-view-winnings",function(e){
         mainLayer = null;
     }
     //reset zoom to city level
-    MY_MAP.map.setZoom(16);
+//    MY_MAP.map.setZoom(16);
     //set to active
      $(this).attr("class","span6 active");
     $("#map-city-level-view-winnings").attr("class","span6");
@@ -1498,7 +1498,7 @@ $("#map-nav").on("click","#map-street-level-view-winnings",function(e){
 
 $("#map-nav").on("click","#map-city-level-view-spendings",function(e){
    //reset zoom to city level
-    MY_MAP.map.setZoom(13);
+ //   MY_MAP.map.setZoom(13);
     //clear winnings markers if any
     if(SPENDINGS_LAYER!=null){
         MY_MAP.map.removeLayer(SPENDINGS_LAYER);
@@ -1520,7 +1520,7 @@ $("#map-nav").on("click","#map-city-level-view-spendings",function(e){
 $("#map-nav").on("click","#map-street-level-view-spendings",function(e){
     e.preventDefault();
    //reset zoom to city level
-    MY_MAP.map.setZoom(16);
+//    MY_MAP.map.setZoom(16);
     //show winnings markers if not already shown
     if(SPENDINGS_LAYER==null){
         loadAvgSpendingsMarkers();
@@ -1542,7 +1542,7 @@ $("#map-nav").on("click","#map-street-level-view-spendings",function(e){
 
 $("#map-nav").on("click","#map-city-level-view-netgainloss",function(e){
    //reset zoom to city level
-    MY_MAP.map.setZoom(13);
+  //  MY_MAP.map.setZoom(13);
     //clear winnings markers if any
     if(SPENDINGS_LAYER!=null && WINNINGS_LAYER!=null){
         MY_MAP.map.removeLayer(SPENDINGS_LAYER);
@@ -1567,7 +1567,7 @@ $("#map-nav").on("click","#map-city-level-view-netgainloss",function(e){
 $("#map-nav").on("click","#map-street-level-view-netgainloss",function(e){
     e.preventDefault();
    //reset zoom to city level
-    MY_MAP.map.setZoom(16);
+   // MY_MAP.map.setZoom(16);
     //show winnings markers if not already shown
     if(SPENDINGS_LAYER==null && WINNINGS_LAYER==null){
         loadNetGainLossMarkers();

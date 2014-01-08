@@ -4,6 +4,9 @@ build/
 dist/
 *.egg-info
 
+#setup
+mit_civic/mit_civic/settings.py
+
 #django noise
 /media
 

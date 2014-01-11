@@ -26,10 +26,10 @@ function CityDigitsMap() {
     this.map.on("zoomend",function(){
         if((MY_MAP.map.getZoom() >=15)){
         //neighorhood level
-        CityDigitsMap.viewSwitcher();
+        //CityDigitsMap.viewSwitcher();
         }else{
         //city level
-        if(WINNINGS_LAYER || SPENDINGS_LAYER){
+       /* if(WINNINGS_LAYER || SPENDINGS_LAYER){
             if(MY_MAP.map.hasLayer(WINNINGS_LAYER)){
                 MY_MAP.map.removeLayer(WINNINGS_LAYER);
             }
@@ -41,7 +41,7 @@ function CityDigitsMap() {
                 CityDigitsMap.loadLayerFor(layerId);
             }
             updateMapUIBackToCityLevel();
-        }
+        }*/
         }
     });
 

@@ -1965,7 +1965,8 @@ padding-top: 10px;
 #tourPreview {
     background-color: #ffffff;
     /*left: 0;*/
-    margin-left: 0;
+ /*   margin-left: 0;*/
+    float:left;
 }
 
 #tour-preview-cover-photo img.cover-photo {

@@ -885,8 +885,8 @@ $("#signUpModal").on("click", ".workflow_1_click", function (ev) {
     $("#signUpModal #workflow_1").hide();
     $("#signUpModal .workflow_1_click").hide();
     //show workflow 2
-    $("#signUpModal #workflow_2").show();
-    $("#signUpModal .workflow_2_add_team").show();
+/*    $("#signUpModal #workflow_2").show();
+    $("#signUpModal .workflow_2_add_team").show();*/
 });
 
 $("#signUpModal").on("click", ".back", function (ev) {
@@ -979,24 +979,30 @@ $('#signUpModal').on("click", ".submit", function (ev) {
     // get all the inputs into an array.
     var values = {};
     values = $('#sign_up_form').serializeArray();
+   values = $('#sign_up_form').serializeArray();
+        console.log("SIGN UP FORM POST VALUES: " );
+        console.log($('#id_email').val());
+
 
 
     //do post
     $.ajax({
-     url: request_url,
+     url: 'accounts_pending.php', //request_url,
      type:'POST',
      dataType: "json",
-     data: values,
+//     data: values,
+                    data: {email:$('#id_email').val()},
      success: function(data){
        console.log("SUCCESS POST");
        //show success page
-       $("#signUpModal #workflow_2").hide();
-       $("#signUpModal .workflow_2_add_team").hide();
+       $("#signUpModal #workflow_1").hide();
+//       $("#signUpModal #workflow_2").hide();
+ //      $("#signUpModal .workflow_2_add_team").hide();
        $("#signUpModal #workflow_3").show();
      },
      error: function(data){
          console.log(data.responseText);
-          $("#signUpModal").html(data.responseText);
+         $("#signUpModal").html(data.responseText);
      }
   });
     //prevent click propagation

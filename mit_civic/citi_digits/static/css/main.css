@@ -276,6 +276,12 @@ width: 100%;
 
 }
 
+.modal {
+    min-width: 800px;
+    max-width: 800px;
+    margin-left: -400px;
+}
+
 .modal-body {
     overflow-x: hidden;
     overflow-y: scroll;

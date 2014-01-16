@@ -119,6 +119,8 @@ width: 100%;
     padding-top: 0;
     padding-bottom: 0;
     padding-left: 10%;
+	margin-left:auto;
+	margin-right:auto;
     font-size: 27px;
     margin-top:10px;
     color: #025ff1;
@@ -177,7 +179,7 @@ width: 100%;
 }
 
 #signUpModal .workflow_1_click {
-    margin-right: 10%;
+    margin-right: 47%; /*10%;*/
 }
 
 #sign_up_form {
@@ -212,12 +214,17 @@ width: 100%;
 }
 
 .form_button{
-    color: #000000;
-    background-color: #a9a9a9;
+    color: #FFF; /*#000000;*/
+    background-color: #3F3F3F; /*#a9a9a9;*/
     background-image: none;
-    box-shadow: 5px 5px 5px 1px #181818;
+    /*box-shadow: 5px 5px 5px 1px #181818;*/
     min-width: 95px;
     max-width: 170px;
+}
+
+.form_button:hover {
+	background-color: #3879D9;
+
 }
 
 .signup-submit-button{
@@ -372,7 +379,7 @@ width: 100%;
  Sign Up form
 */
 .well {
-    background-color: rgb(3,95,242);
+    background-color: #919191; /*rgb(3,95,242);*/
 }
 
 .well .modal-footer {

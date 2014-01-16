@@ -491,7 +491,7 @@ CityDigitsMap.getStyleColorForPercentIncome = function (feature){
         if(percent > 2 && percent <=3){
             fillColor =  "#178def";
         }
-        if(percent > 3 && percent <=15){
+        if(percent > 3) { // && percent <=15){
             fillColor =  "#254aeb";
         }
     }catch (e){

@@ -64,12 +64,12 @@ function CityDigitsMap() {
 
 CityDigitsMap.prototype.loadMarkers = function(){
     //create scale
-    var scale = d3.scale.linear().domain([0,25000]).range([2,100]);
+    var scale = d3.scale.linear().domain([0,40000]).range([2,100]);
 
         //AVERAGE SPENDINGS MARKERS
     this.AVERAGE_SPENDINGS_MARKER_LAYER = L.geoJson(retailer_geojson,{ pointToLayer: function (feature, latlng) {
                         var radius = 100;
-                        if (feature.properties.sales <=25000){
+                        if (feature.properties.sales <=40000){
                             radius = scale(feature.properties.sales);
                         }
 
@@ -138,7 +138,7 @@ CityDigitsMap.prototype.loadMarkers = function(){
     //AVERAGE WINNINGS MARKERS
     this.AVERAGE_WINNINGS_MARKER_LAYER = L.geoJson(retailer_geojson,{ pointToLayer: function (feature, latlng) {
                         var radius = 100;
-                        if (feature.properties.wins_ths <=25000){
+                        if (feature.properties.wins_ths <=40000){
                             radius = scale(feature.properties.wins_ths);
                         }
 

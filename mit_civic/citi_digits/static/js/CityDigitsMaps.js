@@ -69,7 +69,7 @@ CityDigitsMap.prototype.loadMarkers = function(){
         //AVERAGE SPENDINGS MARKERS
     this.AVERAGE_SPENDINGS_MARKER_LAYER = L.geoJson(retailer_geojson,{ pointToLayer: function (feature, latlng) {
                         var radius = 100;
-                        if (feature.properties.wins_ths <=25000){
+                        if (feature.properties.sales <=25000){
                             radius = scale(feature.properties.sales);
                         }
 
@@ -102,7 +102,7 @@ CityDigitsMap.prototype.loadMarkers = function(){
                 }else{
                     popupContent = '<button type="button" class="close modal-close popup-close"><img src="/static/img/close.png"/></button>' +
                         '<div id="win-spend-tooltip"><p class="title">' + feature.properties.FIRST_Plac + '<\p>' +
-            '<p class="body">On an average day at ' + feature.properties.FIRST_Plac + ' players spent <b class="spend-tooltip-green"> $' + Math.round(feature.properties.wins_ths)+'</b></p></div>';
+            '<p class="body">On an average day at ' + feature.properties.FIRST_Plac + ' players spent <b class="spend-tooltip-green"> $' + Math.round(feature.properties.sales)+'</b></p></div>';
                 }
                 MY_MAP.popup.setContent(popupContent);
                 //display popup
@@ -124,7 +124,7 @@ CityDigitsMap.prototype.loadMarkers = function(){
                     }else{
                         popupContent = '<button type="button" class="close modal-close popup-close"><img src="/static/img/close.png"/></button>' +
                             '<div id="win-spend-tooltip"><p class="title">' + feature.properties.FIRST_Plac + '<\p>' +
-                '<p class="body">On an average day at ' + feature.properties.FIRST_Plac + ' players spent <b class="spend-tooltip-green"> $' + Math.round(feature.properties.wins_ths)+'</b></p></div>';
+                '<p class="body">On an average day at ' + feature.properties.FIRST_Plac + ' players spent <b class="spend-tooltip-green"> $' + Math.round(feature.properties.sales)+'</b></p></div>';
                     }
                     MY_MAP.popup.setContent(popupContent);
                 //display popup

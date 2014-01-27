@@ -69,11 +69,11 @@ CityDigitsMap.prototype.loadMarkers = function(){
     //AVERAGE SPENDINGS MARKERS
     this.AVERAGE_SPENDINGS_MARKER_LAYER = L.geoJson(retailer_geojson,{ pointToLayer: function (feature, latlng) {
                         var radius = 100;
-                        if (feature.properties.sales <=40000){
+                        if (feature.properties.sales <= 40000){
                             radius = scale(feature.properties.sales);
                         }
 			//do not display circle if value is 0
-			if (Math.round(feature.properties.sales)<1) {
+			if (Math.round(feature.properties.sales) < 1) {
 			    radius = 0;
 			}
 
@@ -112,7 +112,7 @@ CityDigitsMap.prototype.loadMarkers = function(){
 		if (Math.round(feature.properties.sales >= 1)) {
                     MY_MAP.popup.setContent(popupContent);
                     //display popup
-                    if (!MY_MAP.popup._isOpen && radius!=0) MY_MAP.popup.openOn(MY_MAP.map);
+                    if (!MY_MAP.popup._isOpen) MY_MAP.popup.openOn(MY_MAP.map);
 		}
                 });
 

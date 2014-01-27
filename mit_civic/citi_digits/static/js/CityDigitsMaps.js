@@ -169,8 +169,7 @@ CityDigitsMap.prototype.loadMarkers = function(){
                 //add on hover
                 layer.on('mouseover', function(ev) {
                 //get lat/long
-		if (Math.round(feature.properties.wins_ths) >= 1)
-                    MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+                MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
 
                 //content varies on active layer
                 var layerId = $(".map-ui li.active").attr("id");

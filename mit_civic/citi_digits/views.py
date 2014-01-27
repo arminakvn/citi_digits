@@ -446,17 +446,21 @@ def interviewList(request,offset):
     interviews = __paginatatedEntities(interviews,offset)
 
     #calculate pages to display
-    pagesToDisplay = range(1,interviews.paginator.num_pages)
+    pagesToDisplay = range(1,interviews.paginator.num_pages+1)
 
     if(offset == 1):
-        pagesToDisplay = pagesToDisplay[0:offset+5]
+    	pagesToDisplay = pagesToDisplay[0:offset+4]
+    if(offset == 2):
+    	pagesToDisplay = pagesToDisplay[0:offset+3]
     else:
         idxStart= offset - 2
         if (idxStart > 0):
-            pagesToDisplay = pagesToDisplay[idxStart:idxStart+5]
+	    if (idxStart+5 > (interviews.paginator.num_pages)):
+		pagesToDisplay = pagesToDisplay[interviews.paginator.num_pages-5:interviews.paginator.num_pages]
+            else:
+            	pagesToDisplay = pagesToDisplay[idxStart:idxStart+5]
         else:
-            pagesToDisplay = pagesToDisplay[0:offset+5]
-
+            pagesToDisplay = pagesToDisplay[0:offset+4]
 
     #render
     return render_to_response('interviews.html',{'interviews':interviews,'teams':teams, 'classes':classes,
@@ -624,19 +628,22 @@ def tourList(request,offset):
     tours = __paginatatedEntities(tours,offset)
 
     #calculate pages to display
-    pagesToDisplay = range(1,tours.paginator.num_pages)
+    pagesToDisplay = range(1,tours.paginator.num_pages+1)
     print pagesToDisplay
 
     if(offset == 1):
-        pagesToDisplay = pagesToDisplay[0:offset+5]
+        pagesToDisplay = pagesToDisplay[0:offset+4]
+    if(offset == 2):
+        pagesToDisplay = pagesToDisplay[0:offset+3]
     else:
         idxStart= offset - 2
         if (idxStart > 0):
-            pagesToDisplay = pagesToDisplay[idxStart:idxStart+5]
+            if (idxStart+5 > (tours.paginator.num_pages)):
+                pagesToDisplay = pagesToDisplay[tours.paginator.num_pages-5:tours.paginator.num_pages]
+            else:
+                pagesToDisplay = pagesToDisplay[idxStart:idxStart+5]
         else:
-            pagesToDisplay = pagesToDisplay[0:offset+5]
-
-
+            pagesToDisplay = pagesToDisplay[0:offset+4]
 
     #render
     print toolbar

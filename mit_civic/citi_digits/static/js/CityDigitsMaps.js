@@ -66,12 +66,16 @@ CityDigitsMap.prototype.loadMarkers = function(){
     //create scale
     var scale = d3.scale.linear().domain([0,40000]).range([2,100]);
 
-        //AVERAGE SPENDINGS MARKERS
+    //AVERAGE SPENDINGS MARKERS
     this.AVERAGE_SPENDINGS_MARKER_LAYER = L.geoJson(retailer_geojson,{ pointToLayer: function (feature, latlng) {
                         var radius = 100;
-                        if (feature.properties.sales <=40000){
+                        if (feature.properties.sales <= 40000){
                             radius = scale(feature.properties.sales);
                         }
+			//do not display circle if value is 0
+			if (Math.round(feature.properties.sales) < 1) {
+			    radius = 0;
+			}
 
                             return L.circleMarker(latlng, {
                                         radius: radius,
@@ -88,7 +92,7 @@ CityDigitsMap.prototype.loadMarkers = function(){
                 MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
 
 
-                     //content varies on active layer
+                //content varies on active layer
                 var layerId = $(".map-ui li.active").attr("id");
                 var popupContent = "";
                 if(layerId=="NET_GAIN_LOSS"){
@@ -104,9 +108,12 @@ CityDigitsMap.prototype.loadMarkers = function(){
                         '<div id="win-spend-tooltip"><p class="title">' + feature.properties.FIRST_Plac + '<\p>' +
             '<p class="body">On an average day at ' + feature.properties.FIRST_Plac + ' players spent <b class="spend-tooltip-green"> $' + Math.round(feature.properties.sales)+'</b></p></div>';
                 }
-                MY_MAP.popup.setContent(popupContent);
-                //display popup
-                if (!MY_MAP.popup._isOpen) MY_MAP.popup.openOn(MY_MAP.map);
+		//only display pop for above 0 spending
+		if (Math.round(feature.properties.sales >= 1)) {
+                    MY_MAP.popup.setContent(popupContent);
+                    //display popup
+                    if (!MY_MAP.popup._isOpen) MY_MAP.popup.openOn(MY_MAP.map);
+		}
                 });
 
                 layer.on("click",function(ev){
@@ -126,10 +133,12 @@ CityDigitsMap.prototype.loadMarkers = function(){
                             '<div id="win-spend-tooltip"><p class="title">' + feature.properties.FIRST_Plac + '<\p>' +
                 '<p class="body">On an average day at ' + feature.properties.FIRST_Plac + ' players spent <b class="spend-tooltip-green"> $' + Math.round(feature.properties.sales)+'</b></p></div>';
                     }
-                    MY_MAP.popup.setContent(popupContent);
-                //display popup
-                if (!MY_MAP.popup._isOpen) MY_MAP.popup.openOn(MY_MAP.map);
-
+		    //only display pop for above 0 spending
+		    if (Math.round(feature.properties.sales >= 1)) {
+                        MY_MAP.popup.setContent(popupContent);
+                	//display popup
+                	if (!MY_MAP.popup._isOpen) MY_MAP.popup.openOn(MY_MAP.map);
+		    }
                 });
 
             }
@@ -138,9 +147,13 @@ CityDigitsMap.prototype.loadMarkers = function(){
     //AVERAGE WINNINGS MARKERS
     this.AVERAGE_WINNINGS_MARKER_LAYER = L.geoJson(retailer_geojson,{ pointToLayer: function (feature, latlng) {
                         var radius = 100;
-                        if (feature.properties.wins_ths <=40000){
+                        if (feature.properties.wins_ths <= 40000){
                             radius = scale(feature.properties.wins_ths);
                         }
+			//do not display circle if value is 0
+			if (Math.round(feature.properties.wins_ths) < 1) {
+			    radius = 0;
+			}
 
                             return L.circleMarker(latlng, {
                                         radius: radius,
@@ -175,9 +188,12 @@ CityDigitsMap.prototype.loadMarkers = function(){
                      '<p class="body">On an average day at ' + feature.properties.FIRST_Plac + ' players won <b class="win-tooltip-purple"> $' + Math.round(feature.properties.wins_ths)+'</b></p></div>';
                 }
 
-                MY_MAP.popup.setContent(popupContent);
-                //display popup
-                if (!MY_MAP.popup._isOpen) MY_MAP.popup.openOn(MY_MAP.map);
+		//only display pop for above 0 winnings
+		if (Math.round(feature.properties.wins_ths) >= 1) {
+                    MY_MAP.popup.setContent(popupContent);
+                    //display popup
+                    if (!MY_MAP.popup._isOpen) MY_MAP.popup.openOn(MY_MAP.map);
+		}
                 });
 
                 layer.on("click",function(ev){
@@ -197,9 +213,12 @@ CityDigitsMap.prototype.loadMarkers = function(){
                          '<div id="win-spend-tooltip"><p class="title">' + feature.properties.FIRST_Plac + '<\p>' +
                         '<p class="body">On an average day at ' + feature.properties.FIRST_Plac + ' players won <b class="win-tooltip-purple"> $' + Math.round(feature.properties.wins_ths)+'</b></p></div>';
                      }
-                    MY_MAP.popup.setContent(popupContent);
-                    //display popup
-                    if (!MY_MAP.popup._isOpen) MY_MAP.popup.openOn(MY_MAP.map);
+		     //only display pop for above 0 winnings
+		     if (Math.round(feature.properties.wins_ths) >= 1) {
+                	MY_MAP.popup.setContent(popupContent);
+                        //display popup
+                	if (!MY_MAP.popup._isOpen) MY_MAP.popup.openOn(MY_MAP.map);
+		     }
                 });
             }
     });

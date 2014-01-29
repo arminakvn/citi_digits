@@ -47,6 +47,7 @@ $().ready(new function(){
     }
   });
 
+
     //get screen measurements
     SCREEN_HEIGHT =  $(window).height();
     var myMap = new CityDigitsMap();
@@ -64,6 +65,16 @@ $().ready(new function(){
 
     $(".tab-content").height=$(window).height();
 //    loadInterviews();
+});
+
+//function to refresh tab content on reload
+$( document ).ready(function() {
+   
+    var hash = window.location.hash;
+    if (hash) {
+        tab = hash.substring(0, hash.indexOf('-'));
+        $(tab).trigger("click");
+  }
 });
 
 /*

@@ -47,6 +47,7 @@ def scale(imagefield, size, method='scale'):
 
         image = Image.open(imagefield.path)
 
+
         # normalize image mode
         if image.mode != 'RGB':
             image = image.convert('RGB')
@@ -61,13 +62,30 @@ def scale(imagefield, size, method='scale'):
 
         elif method == 'crop':
             try:
-                import ImageOps
+                import ImageOps, ExifTags
             except ImportError:
-                from PIL import ImageOps
+                from PIL import ImageOps, ExifTags
 
             ImageOps.fit(image, (width, height), Image.ANTIALIAS
                         ).save(image_path, FMT, quality=QUAL)
 
+    	    try :
+                for orientation in ExifTags.TAGS.keys() : 
+                    if ExifTags.TAGS[orientation]=='Orientation' : break 
+                exif=dict(image._getexif().items())
+
+        	if  exif[orientation] == 3: 
+            	    image=image.rotate(180, expand=True)
+        	elif exif[orientation] == 6: 
+            	    image=image.rotate(270, expand=True)
+        	elif exif[orientation] == 8: 
+            	    image=image.rotate(90, expand=True)
+
+        	image.save(image_path, FMT, quality=QUAL)
+
+            except ImportError:
+                raise ImportError('Cannot rotate.')
+			
     return resized_path(imagefield.url, size, method)
 
 def scaleByWidth(imagefield, size, method='scale'):

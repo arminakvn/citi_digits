@@ -627,7 +627,7 @@ CityDigitsMap.getStyleColorForNetWinLoss = function(feature){
     if(net > -1000 && net <=0){
         fillColor = "#fea9e9";
     }
-    if(net > 0 && net <=1300){
+    if(net > 0) { // && net <=1300){
         fillColor = "#fbc5ed";
     }
 

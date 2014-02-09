@@ -1725,9 +1725,14 @@ $("#addTour").on("click","#save_tour_button",function(event){
     // get all the inputs into an array.
     var values = {};
     values = $('#add_tour_form').serializeArray();
+    //if link field does not contain http://, add it
+    if (!values[7].value.match('^/http/')) {
+	values[7].value = 'http://' + values[7].value;
+    }
 
     $("#add_tour_form").ajaxSubmit({
         url:request_url, // the file to call
+	data: values, 
         success: function(response) {
             if(response.toString().indexOf("errorlist") >=0){
                 //there were errors in the forms

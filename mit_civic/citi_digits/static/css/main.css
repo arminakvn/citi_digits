@@ -2705,3 +2705,8 @@ span.underline-black{
     color: #ffffff;
     font-size: 22px;
 }
+
+.carousel-control.right, .carousel-control.left {
+    top: 310px;
+    opacity: 1;
+}

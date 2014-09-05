@@ -5,7 +5,7 @@ import os, sys
 PROJECT_ROOT = os.path.dirname(__file__)
 
 
-DEBUG = True
+DEBUG = True 
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -20,8 +20,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'citi_digits',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
+        'USER': 'city_user',
+        'PASSWORD': 'Eo@_rKR7)ZohFWT',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
@@ -175,3 +175,16 @@ LOGGING = {
         },
     }
 }
+
+# Outgoing mail
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'ghostmap.mit.edu'
+EMAIL_HOST_USER = 'citydigits@ghostmap.mit.edu'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+
+FILE_UPLOAD_MAX_MEMORY_SIZE=5242880
+
+
+
+

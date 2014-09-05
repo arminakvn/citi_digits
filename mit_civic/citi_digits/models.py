@@ -35,6 +35,13 @@ class Student(models.Model):
     # password = models.CharField(max_length=128,null=False)
     team = models.ForeignKey(Team)
 
+    def getStudentName(self):
+        """
+
+        """
+        return Student.objects.get(self.firstName)
+
+
 
 class CityDigitsUserManager(BaseUserManager):
     """

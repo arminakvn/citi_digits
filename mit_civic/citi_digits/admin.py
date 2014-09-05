@@ -8,6 +8,7 @@ def getStudentName(model):
     """
       Return the students name to aide in display.
     """
+#    return model.getStudent.firstName
     return model.student.firstName
 
 def getInterviewTitle(model):
@@ -20,9 +21,13 @@ def getInterviewTitle(model):
     if model.interviewType == "PLAYER":
         return model.getInterview().firstName
 
+def getInterviewComment(model):
+	return model.getInterview().comment
+def getTeacherName(model):
+	return model.getTeacher.firstName
 
 class InterviewAdmin(admin.ModelAdmin):
-    list_display = ['id',getInterviewTitle, getStudentName, 'interviewType','created_at']
+    list_display = ['id', getInterviewTitle, getStudentName, 'interviewType','created_at']
     ordering = ['created_at']
 
 class InterviewRetailerAdmin(admin.ModelAdmin):
@@ -30,6 +35,7 @@ class InterviewRetailerAdmin(admin.ModelAdmin):
 
 class InterviewPlayerAdmin(admin.ModelAdmin):
     list_display = ['id','firstName']
+
 
 admin.site.register(CityDigitsUser)
 admin.site.register(Interview,InterviewAdmin)

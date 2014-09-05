@@ -19,18 +19,18 @@ class Command(BaseCommand):
         print "Creating file: " + pathToMP3
           
         # ffmpeg -i .amr -acodec libmp3lame -ab 64k test.mp3
-        call(["ffmpeg", "-i",pathToAMR,"-acodec","libmp3lame","-ab","64k",pathToMP3])
+        call(["ffmpeg", "-i",pathToAMR,"-acodec","libmp3lame","-ab","64k","-y",pathToMP3])
 
     def findAMRFiles(self, dirpath,dirnames,filenames):
         fileToProcess = None
-        alreadyEncodedFlag = False
         for filename in filenames:
+            alreadyEncodedFlag = False
             if ".amr" in filename:
                 fileToProcess = (dirpath,filename)
             if ".mp3" in filename:
                 alreadyEncodedFlag = True
-        if (not alreadyEncodedFlag and fileToProcess is not None):
-             self.convertAMRToMp3(fileToProcess)
+            if (not alreadyEncodedFlag and fileToProcess is not None):
+                self.convertAMRToMp3(fileToProcess)
 
     def getDirectoryListing(self):
         """

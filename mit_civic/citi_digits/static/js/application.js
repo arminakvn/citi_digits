@@ -25,7 +25,7 @@ var SCREEN_HEIGHT = null;
 var CURRENT_LAYER = null;
 var VIEW_ALL_SCHOOLS_IS_OPEN = false;
 var MY_SELECTED_BOROUGHS = [];
-RELATIVE_URL = '';  //for development leave this blank. For production it should be '/citydigits'
+RELATIVE_URL = '/locallotto';  //for development leave this blank. For production it should be '/citydigits'
 
 /*
   This function is called when the page DOM has loaded. It enables 'back' button, sets up the map

@@ -5,7 +5,7 @@ import django
 from django.contrib.auth.models import AnonymousUser
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction
-from django.forms.util import ErrorList
+from django.forms.utils import ErrorList
 from django.forms.formsets import formset_factory
 from django.http import HttpResponse, QueryDict
 from django.shortcuts import render_to_response
@@ -27,7 +27,7 @@ def index(request):
                               context_instance=RequestContext(request))
 
 
-@transaction.autocommit
+@transaction.atomic()
 def signUp(request):
     """
       Sign up
@@ -139,14 +139,14 @@ def login(request):
                     return HttpResponse(200)
                 else:
                     #setup errors to display back to user
-                    errors = django.forms.util.ErrorList()
+                    errors = django.forms.utils.ErrorList()
                     errors = form._errors.setdefault(
                         django.forms.forms.NON_FIELD_ERRORS, errors)
                     errors.append('Sorry, this user account is disabled.')
                     return render_to_response('login.html', {'form': form}, context_instance=RequestContext(request))
             else:
                 #setup errors
-                errors = django.forms.util.ErrorList()
+                errors = django.forms.utils.ErrorList()
                 errors = form._errors.setdefault(
                     django.forms.forms.NON_FIELD_ERRORS, errors)
                 errors.append('Username/Password Not Found.')
@@ -176,7 +176,7 @@ def interviewSelect(request):
     return render_to_response('interview_selector.html', context_instance=RequestContext(request))
 
 
-@transaction.autocommit
+@transaction.atomic()
 def interviewPlayer(request):
     """
       Handles player interview form
@@ -224,7 +224,7 @@ def interviewPlayer(request):
 
 
 
-@transaction.autocommit
+@transaction.atomic()
 def interviewRetailer(request):
     """
       Handles retailer interview form
@@ -478,7 +478,7 @@ def interviewDetails(request,id):
                                                         'comments':comments},context_instance=RequestContext(request))
 
 
-@transaction.autocommit
+@transaction.atomic()
 def comment(request,id):
     """
       Posts a comment to an interview
@@ -512,7 +512,7 @@ def comment(request,id):
 
 
 
-@transaction.autocommit
+@transaction.atomic()
 def tour(request):
     """
      Handles adding a tour

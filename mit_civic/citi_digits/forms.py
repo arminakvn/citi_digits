@@ -3,8 +3,8 @@ from django.conf import settings
 __author__ = 'vikashdat'
 
 from django import forms
-from django.contrib.localflavor.us.forms import USStateField
-from django.contrib.localflavor.us.us_states import STATE_CHOICES
+from localflavor.us.forms import USStateField
+from localflavor.us.us_states import STATE_CHOICES
 
 
 class SignUpForm(forms.Form):
